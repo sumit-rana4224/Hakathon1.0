@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock & GDP Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>FINSIGHT AI</h1>
+        </header>
+        
+        <main>
+            <div class="watchlist">
+                <h2>Watchlist</h2>
+                <ul id="watchlist"></ul>
+            </div>
+
+            <div class="stock-details">
+                <h2>Stock Details</h2>
+                <div id="stock-info"></div>
+            </div>
+        </main>
+
+        <section class="search-section">
+            <input type="text" id="search" placeholder="Search for stocks...">
+            <table id="stock-table">
+                <thead>
+                    <tr>
+                        <th>Stock Name</th>
+                        <th>Price</th>
+                        <th>Change</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section class="gdp-section">
+            <h2>GDP Analysis</h2>
+            <canvas id="gdp-chart"></canvas>
+        </section>
+    </div>
+
+    <script src="scriptdemo.js"></script>
+</body>
+</html>
