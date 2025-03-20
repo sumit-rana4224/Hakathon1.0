@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inflation Cost Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #34495e;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+        /* Main Content Layout */
+        main {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .calculator-container {
+            width: 60%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .calculator-container h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #34495e;
+        }
+
+        .calculator-container input,
+        .calculator-container button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .calculator-container button {
+            background-color: #34495e;
+            color: white;
+            cursor: pointer;
+        }
+
+        .calculator-container button:hover {
+            background-color: #f39c12;
+        }
+
+        /* Donut Chart Styling */
+        .chart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-section {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .report-section h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: #34495e;
+        }
+
+        .report-section p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .calculator-container {
+                width: 90%;
+            }
+
+            .chart-container {
+                width: 90%;
+            }
+
+            .report-section {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Inflation Cost Calculator</h1>
+</header>
+
+<main>
+    <!-- Inflation Calculator Form -->
+    <div class="calculator-container">
+        <h3>Calculate Future Cost with Inflation</h3>
+        <input type="number" id="currentCost" placeholder="Enter Current Cost (INR)" />
+        <input type="number" id="inflationRate" placeholder="Enter Inflation Rate (%)" />
+        <input type="number" id="numYears" placeholder="Enter Number of Years" />
+        <button onclick="calculateInflation()">Calculate</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- Donut Chart for Inflation Result -->
+    <div class="chart-container">
+        <canvas id="donutChart"></canvas>
+    </div>
+
+    <!-- Report Section -->
+    <div class="report-section">
+        <h3>Inflation Report (Past 10 Years)</h3>
+        <p><strong>Inflation Rate of India in the Last 10 Years:</strong></p>
+        <p>Inflation rates play a significant role in shaping a country's economy. In India, the inflation rate has fluctuated over the past decade due to various factors including supply-demand issues, global economic conditions, and domestic policies. Below is an overview of India's inflation rates for the past 10 years:</p>
+        <ul>
+            <li><strong>2014:</strong> 6.0%</li>
+            <li><strong>2015:</strong> 4.9%</li>
+            <li><strong>2016:</strong> 4.5%</li>
+            <li><strong>2017:</strong> 3.3%</li>
+            <li><strong>2018:</strong> 3.6%</li>
+            <li><strong>2019:</strong> 3.7%</li>
+            <li><strong>2020:</strong> 6.6%</li>
+            <li><strong>2021:</strong> 5.6%</li>
+            <li><strong>2022:</strong> 5.1%</li>
+            <li><strong>2023:</strong> 4.5% (estimated)</li>
+        </ul>
+        <p>The government of India keeps a close eye on inflation to ensure economic stability. An appropriate inflation rate is necessary to maintain a balance between economic growth and price stability, thereby fostering long-term economic growth.</p>
+    </div>
+</main>
+
+<script>
+    function calculateInflation() {
+        var currentCost = parseFloat(document.getElementById('currentCost').value);
+        var inflationRate = parseFloat(document.getElementById('inflationRate').value);
+        var numYears = parseInt(document.getElementById('numYears').value);
+
+        if (isNaN(currentCost) || isNaN(inflationRate) || isNaN(numYears) || currentCost <= 0 || inflationRate <= 0 || numYears <= 0) {
+            document.getElementById('result').textContent = "Please enter valid values.";
+            return;
+        }
+
+        // Calculate future cost using compound inflation
+        var futureCost = currentCost * Math.pow(1 + (inflationRate / 100), numYears);
+        document.getElementById('result').textContent = `Future Cost after ${numYears} years: ₹${futureCost.toFixed(2)}`;
+
+        // Create the donut chart with current and future cost
+        createDonutChart(currentCost, futureCost);
+    }
+
+    function createDonutChart(currentCost, futureCost) {
+        var ctx = document.getElementById('donutChart').getContext('2d');
+        var data = {
+            labels: ['Current Cost', 'Future Cost'],
+            datasets: [{
+                label: 'Cost Comparison',
+                data: [currentCost, futureCost],
+                backgroundColor: ['#FF5733', '#f39c12'],
+                hoverBackgroundColor: ['#C0392B', '#e67e22'],
+            }]
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return `₹${tooltipItem.raw.toFixed(2)}`;
+                        }
+                    }
+                }
+            }
+        };
+
+        var donutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
+</script>
+
+</body>
+</html>
+

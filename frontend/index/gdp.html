@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDP and Financial Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="gdp.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>GDP and Financial Dashboard</h1>
+        <nav>
+            <a href="#">About</a>
+            <a href="#">Help</a>
+            <a href="#">Search</a>
+            <a href="#">Information</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Left Section with GDP Data -->
+        <div class="left-section">
+            <h3>India GDP (Last 10 Years)</h3>
+            <ul class="data-list">
+                <li><strong>2015:</strong> 2.09 Trillion USD</li>
+                <li><strong>2016:</strong> 2.29 Trillion USD</li>
+                <li><strong>2017:</strong> 2.44 Trillion USD</li>
+                <li><strong>2018:</strong> 2.69 Trillion USD</li>
+                <li><strong>2019:</strong> 2.87 Trillion USD</li>
+                <li><strong>2020:</strong> 2.87 Trillion USD</li>
+                <li><strong>2021:</strong> 2.94 Trillion USD</li>
+                <li><strong>2022:</strong> 3.10 Trillion USD</li>
+                <li><strong>2023:</strong> 3.29 Trillion USD</li>
+                <li><strong>2024 (Estimate):</strong> 3.46 Trillion USD</li>
+            </ul>
+
+            <!-- Input Form -->
+            <div class="input-form">
+                <h4>Add Your Own Data</h4>
+                <input type="text" id="yearInput" placeholder="Enter Year (e.g., 2025)" />
+                <input type="number" id="gdpInput" placeholder="Enter GDP Value (in Trillions)" />
+                <button onclick="addData()">Add Data</button>
+            </div>
+        </div>
+
+        <!-- Right Section with Chart -->
+        <div class="chart-container">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </main>
+
+    <!-- Recent Reports Section -->
+    <section id="recent-reports">
+        <h3>Recent Reports on India's GDP</h3>
+        <div>
+            <button onclick="toggleReport('report1')">India e-Conomy Report 2023</button>
+            <div id="report1" class="report-content">
+                <p>India's digital economy is expected to reach $1 trillion by 2030. <a href="#" target="_blank">Read more</a></p>
+            </div>
+        </div>
+        <div>
+            <button onclick="toggleReport('report2')">Moody's GDP Growth Forecast</button>
+            <div id="report2" class="report-content">
+                <p>Moody's revised India's GDP growth forecast for 2022 to 7%. <a href="#" target="_blank">Read more</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 GDP and Financial Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script src="gdp.js"></script> <!-- Link to external JavaScript -->
+</body>
+</html>

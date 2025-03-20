@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Ticker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .ticker-container {
+            width: 100%;
+            overflow: hidden;
+            background: #222;
+            color: white;
+            padding: 10px 0;
+            position: relative;
+            white-space: nowrap;
+        }
+        .ticker-content {
+            display: flex;
+            width: max-content;
+            animation: scrollTicker 50s linear infinite;
+        }
+        .ticker-item {
+            display: inline-block;
+            margin-right: 50px;
+            font-size: 18px;
+        }
+        .profit {
+            color: #00ff00;
+        }
+        .loss {
+            color: #ff0000;
+        }
+        @keyframes scrollTicker {
+            from {
+                transform: translateX(100vw);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ticker-container">
+        <div class="ticker-content" id="ticker">
+            <span class="ticker-item profit">RELIANCE: ₹2520.45 ▲ 1.25%</span>
+            <span class="ticker-item loss">TATASTEEL: ₹121.90 ▼ 0.75%</span>
+            <span class="ticker-item profit">INFY: ₹1467.35 ▲ 2.10%</span>
+            <span class="ticker-item profit">WIPRO: ₹412.80 ▲ 1.95%</span>
+            <span class="ticker-item loss">HDFCBANK: ₹1625.55 ▼ 0.50%</span>
+            <span class="ticker-item loss">TCS: ₹3452.25 ▼ 0.60%</span>
+            <span class="ticker-item profit">LT: ₹2850.75 ▲ 0.90%</span>
+            <span class="ticker-item loss">ICICIBANK: ₹923.20 ▼ 0.45%</span>
+            <span class="ticker-item profit">SBIN: ₹597.65 ▲ 1.10%</span>
+            <span class="ticker-item loss">AXISBANK: ₹915.30 ▼ 0.80%</span>
+            <span class="ticker-item loss">BHARTIARTL: ₹918.45 ▼ 1.30%</span>
+            <span class="ticker-item profit">ITC: ₹420.50 ▲ 0.75%</span>
+            <span class="ticker-item profit">HCLTECH: ₹1190.20 ▲ 1.45%</span>
+            <span class="ticker-item loss">TECHM: ₹1195.55 ▼ 0.35%</span>
+            <span class="ticker-item profit">MARUTI: ₹9750.90 ▲ 1.10%</span>
+            <span class="ticker-item loss">ONGC: ₹158.75 ▼ 0.95%</span>
+            <span class="ticker-item profit">COALINDIA: ₹242.60 ▲ 0.85%</span>
+            <span class="ticker-item loss">POWERGRID: ₹229.75 ▼ 0.40%</span>
+            <span class="ticker-item profit">NTPC: ₹188.35 ▲ 0.50%</span>
+            <span class="ticker-item loss">JSWSTEEL: ₹745.20 ▼ 0.75%</span>
+            <span class="ticker-item profit">ADANIENT: ₹2545.80 ▲ 2.20%</span>
+            <span class="ticker-item loss">ADANIPORTS: ₹875.10 ▼ 1.00%</span>
+            <span class="ticker-item profit">BAJAJ-AUTO: ₹3950.45 ▲ 1.30%</span>
+            <span class="ticker-item loss">EICHERMOT: ₹3325.50 ▼ 0.85%</span>
+            <span class="ticker-item profit">SUNPHARMA: ₹1090.65 ▲ 0.95%</span>
+            <span class="ticker-item loss">CIPLA: ₹1135.30 ▼ 0.65%</span>
+            <span class="ticker-item profit">DIVISLAB: ₹3650.80 ▲ 1.10%</span>
+            <span class="ticker-item loss">TITAN: ₹2595.55 ▼ 0.90%</span>
+            <span class="ticker-item profit">M&M: ₹1395.75 ▲ 0.85%</span>
+            <span class="ticker-item loss">HEROMOTOCO: ₹3125.20 ▼ 0.75%</span>
+            <span class="ticker-item profit">ULTRACEMCO: ₹7300.90 ▲ 1.25%</span>
+            <span class="ticker-item loss">GRASIM: ₹1850.65 ▼ 0.60%</span>
+            <span class="ticker-item profit">SHREECEM: ₹27350.75 ▲ 1.40%</span>
+            <span class="ticker-item loss">HINDALCO: ₹450.30 ▼ 0.55%</span>
+            <span class="ticker-item profit">BPCL: ₹365.90 ▲ 0.95%</span>
+            <span class="ticker-item loss">IOC: ₹120.45 ▼ 0.85%</span>
+            <span class="ticker-item profit">HINDUNILVR: ₹2550.60 ▲ 0.80%</span>
+            <span class="ticker-item loss">NESTLEIND: ₹19850.75 ▼ 0.70%</span>
+            <span class="ticker-item profit">BRITANNIA: ₹4775.20 ▲ 1.10%</span>
+            <span class="ticker-item loss">DABUR: ₹550.40 ▼ 0.65%</span>
+        </div>
+    </div>
+</body>
+</html>

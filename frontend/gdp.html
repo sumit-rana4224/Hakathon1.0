@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDP and Financial Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #34495e;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #f39c12;
+        }
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav a:hover {
+            color: #f39c12;
+            transform: scale(1.1);
+        }
+
+        /* Main Content Layout */
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        .left-section {
+            width: 45%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-section h3 {
+            font-size: 24px;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+
+        .data-list {
+            font-size: 18px;
+            color: #34495e;
+            list-style-type: none;
+        }
+
+        .data-list li {
+            margin-bottom: 8px;
+        }
+
+        .input-form {
+            margin-top: 20px;
+        }
+
+        .input-form input, .input-form button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .chart-container {
+            width: 45%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left-section, .chart-container {
+                width: 100%;
+                max-width: 500px;
+            }
+            header h1 {
+                font-size: 22px;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+
+        /* Recent Reports Section Styling */
+        #recent-reports {
+            padding: 30px;
+            background-color: #fff;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #recent-reports h3 {
+            font-size: 24px;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        #recent-reports button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            text-align: left;
+            background-color: #34495e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #recent-reports div {
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        #recent-reports a {
+            color: #3498db;
+        }
+
+        /* Report Styling */
+        .report-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .report-content ul {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .report-content ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>GDP and Financial Dashboard</h1>
+    <nav>
+        <a href="#">About</a>
+        <a href="#">Help</a>
+        <a href="#">Search</a>
+        <a href="#">Information</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Left Section with GDP Data and Input Form -->
+    <div class="left-section">
+        <h3>India GDP (Last 10 Years)</h3>
+        <ul class="data-list">
+            <li><strong>2015:</strong> 2.09 Trillion USD</li>
+            <li><strong>2016:</strong> 2.29 Trillion USD</li>
+            <li><strong>2017:</strong> 2.44 Trillion USD</li>
+            <li><strong>2018:</strong> 2.69 Trillion USD</li>
+            <li><strong>2019:</strong> 2.87 Trillion USD</li>
+            <li><strong>2020:</strong> 2.87 Trillion USD</li>
+            <li><strong>2021:</strong> 2.94 Trillion USD</li>
+            <li><strong>2022:</strong> 3.10 Trillion USD</li>
+            <li><strong>2023:</strong> 3.29 Trillion USD</li>
+            <li><strong>2024 (Estimate):</strong> 3.46 Trillion USD</li>
+        </ul>
+
+        <!-- Input Form to Add Custom Data -->
+        <div class="input-form">
+            <h4>Add Your Own Data</h4>
+            <input type="text" id="yearInput" placeholder="Enter Year (e.g., 2025)" />
+            <input type="number" id="gdpInput" placeholder="Enter GDP Value (in Trillions)" />
+            <button onclick="addData()">Add Data</button>
+        </div>
+    </div>
+
+    <!-- Right Section with Pie Chart -->
+    <div class="chart-container">
+        <canvas id="pieChart"></canvas>
+    </div>
+</main>
+
+<!-- Recent Reports Section -->
+<section id="recent-reports">
+    <h3>Recent Reports on India's GDP</h3>
+    <div>
+        <button onclick="toggleReport('report1')">India e-Conomy Report 2023</button>
+        <div id="report1" style="display: none;">
+            <div class="report-content">
+                <h4>Overview:</h4>
+                <ul>
+                    <li>India's digital economy is expected to reach $1 trillion by 2030.</li>
+                    <li>The government’s push for digital infrastructure is vital in shaping India’s GDP growth.</li>
+                    <li>Digital transformation is reshaping key sectors, including retail, banking, and healthcare.</li>
+                    <li>The report highlights challenges such as digital literacy and data privacy concerns.</li>
+                    <li>India is positioned as a leading digital economy globally.</li>
+                    <li>The ongoing digital revolution will drive economic inclusion and new job opportunities.</li>
+                </ul>
+                <p>Read more in the full report: <a href="https://services.google.com/fh/files/blogs/india_economy_report_2023.pdf" target="_blank">India e-Conomy Report 2023</a></p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button onclick="toggleReport('report2')">Moody's GDP Growth Forecast</button>
+        <div id="report2" style="display: none;">
+            <div class="report-content">
+                <h4>Overview:</h4>
+                <ul>
+                    <li>Moody's has revised India's GDP growth forecast for 2022 to 7%.</li>
+                    <li>Forecasts suggest a slight slowdown in 2023, to 4.8%, due to global inflationary pressures.</li>
+                    <li>India's resilience amidst global disruptions is driven by strong domestic consumption.</li>
+                    <li>Structural reforms in agriculture, manufacturing, and services are key to long-term growth.</li>
+                    <li>Challenges include rising inflation, fiscal deficit, and climate change risks.</li>
+                    <li>India is projected to become the third-largest global economy by 2050.</li>
+                </ul>
+                <p>Read more in the full report: <a href="https://news.google.com/__i/rss/rd/articles/CBMicWh0dHBzOi8vd3d3LnJldXRlcnMuY29tL3dvcmxkL2luZGlhL21vb2R5cy1naHBzL2JsdWZsZy1jZW50ZXI0L2xhdGVzdC1jb2xvcnM2M2c4NzI2e9IBAA" target="_blank">Moody's GDP Growth Forecast</a></p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button onclick="toggleReport('report3')">India's Economic Recovery Post-COVID</button>
+        <div id="report3" style="display: none;">
+            <div class="report-content">
+                <h4>Overview:</h4>
+                <ul>
+                    <li>The Indian economy has shown resilience in recovering from the COVID-19 pandemic.</li>
+                    <li>GDP growth rebounded sharply in 2021 and 2022, driven by economic reforms and consumption recovery.</li>
+                    <li>The government’s stimulus measures, such as the Atmanirbhar Bharat scheme, played a critical role.</li>
+                    <li>India’s manufacturing and services sectors contributed to the strong economic recovery.</li>
+                    <li>Despite progress, challenges like unemployment and inflation need continued focus for sustainable growth.</li>
+                </ul>
+                <p>Read more in the full report: <a href="https://economictimes.indiatimes.com/news/economy/indicators/india-records-highest-economic-growth-since-2011-12-in-2021-22/articleshow/90646517.cms" target="_blank">India's Economic Recovery Post-COVID</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 GDP and Financial Dashboard. All rights reserved.</p>
+</footer>
+
+<script>
+    function toggleReport(reportId) {
+        var report = document.getElementById(reportId);
+        report.style.display = (report.style.display === "none" || report.style.display === "") ? "block" : "none";
+    }
+
+    var ctx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024 (Estimate)'],
+            datasets: [{
+                data: [2.09, 2.29, 2.44, 2.69, 2.87, 2.87, 2.94, 3.10, 3.29, 3.46],
+                backgroundColor: [
+                    '#FF5733', '#33FF57', '#3357FF', '#F0F033', '#FF33F0',
+                    '#33F0FF', '#F033FF', '#57FF33', '#5733FF', '#F033F0'
+                ],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + ' Trillion USD';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    function addData() {
+        var year = document.getElementById('yearInput').value;
+        var gdpValue = parseFloat(document.getElementById('gdpInput').value);
+
+        if (year && !isNaN(gdpValue)) {
+            pieChart.data.labels.push(year);
+            pieChart.data.datasets[0].data.push(gdpValue);
+            pieChart.update();
+        }
+    }
+</script>
+
+</body>
+</html>
