@@ -1,45 +1,78 @@
-// Toggle Report Visibility
-function toggleReport(reportId) {
-    const report = document.getElementById(reportId);
-    report.style.display = report.style.display === 'block' ? 'none' : 'block';
+async function fetchGDPData() {
+    try {
+        const response = await fetch('http://localhost:3005/gdp');
+        if (!response.ok) {
+            throw new Error('Failed to fetch GDP data');
+        }
+        const gdpData = await response.json();
+
+        const gdpDataList = document.getElementById('gdpDataList');
+        gdpDataList.innerHTML = '';
+
+        gdpData.forEach((item) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>${item.year}:</strong> ${item.gdp.toLocaleString()} USD`;
+            gdpDataList.appendChild(listItem);
+        });
+    } catch (error) {
+        console.error('Error fetching GDP data:', error);
+    }
 }
 
-// Initialize Pie Chart
-const ctx = document.getElementById('pieChart').getContext('2d');
-const pieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024 (Estimate)'],
-        datasets: [{
-            data: [2.09, 2.29, 2.44, 2.69, 2.87, 2.87, 2.94, 3.10, 3.29, 3.46],
-            backgroundColor: ['#FF5733', '#33FF57', '#3357FF', '#F0F033', '#FF33F0', '#33F0FF', '#F033FF', '#57FF33', '#5733FF', '#F033F0'],
-            borderColor: '#fff',
-            borderWidth: 2
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { position: 'top' },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)} Trillion USD`;
+fetchGDPData();
+function updatePieChart(gdpData) {
+    var ctx = document.getElementById('pieChart').getContext('2d');
+
+    var labels = gdpData.map(item => item.year);
+    var data = gdpData.map(item => item.gdp);
+
+    if (window.pieChart) {
+        window.pieChart.destroy(); // Destroy old chart before updating
+    }
+
+    window.pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    '#FF5733', '#33FF57', '#3357FF', '#F0F033', '#FF33F0',
+                    '#33F0FF', '#F033FF', '#57FF33', '#5733FF', '#F033F0'
+                ],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + ' Trillion USD';
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
+}
 
-// Add Data to Chart
 function addData() {
-    const year = document.getElementById('yearInput').value;
-    const gdpValue = parseFloat(document.getElementById('gdpInput').value);
+    var year = document.getElementById('yearInput').value;
+    var gdpValue = parseFloat(document.getElementById('gdpInput').value);
 
     if (year && !isNaN(gdpValue)) {
-        pieChart.data.labels.push(year);
-        pieChart.data.datasets[0].data.push(gdpValue);
-        pieChart.update();
+        if (!window.pieChart) return; // Ensure the chart is loaded
+
+        window.pieChart.data.labels.push(year);
+        window.pieChart.data.datasets[0].data.push(gdpValue);
+        window.pieChart.update();
     }
 }
+
+// Load GDP data when the page loads
+document.addEventListener("DOMContentLoaded", fetchGDPData);
+
