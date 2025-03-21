@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflation Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>📈 Inflation Data Visualization</h1>
+    <canvas id="inflationChart"></canvas>
+
+    <script>
+        async function fetchInflationData() {
+            try {
+                const response = await fetch('http://localhost:3001/api/inflation');
+                const data = await response.json();
+
+                const dates = data.map(item => item.date);
+                const values = data.map(item => item.value);
+
+                // Chart.js to create a line chart
+                const ctx = document.getElementById('inflationChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Inflation Rate',
+                            data: values,
+                            borderColor: 'rgb(75, 192, 192)',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error fetching inflation data:', error);
+            }
+        }
+
+        // Fetch and display data
+        fetchInflationData();
+    </script>
+
+</body>
+</html>
