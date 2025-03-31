@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
 :root {
   --primary-color: #704ea6;
   --secondary-color: #a857b8;
@@ -12,7 +14,7 @@
   --insta-color: #E1306C;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
 
 * {
   font-family: 'Poppins', sans-serif;
@@ -342,4 +344,11 @@ body {
       margin: .5rem;
       font-size: 2rem;
   }
+}
+
+.welcomestyle1{
+  color: #6edb37;
+}
+.welcomestyle2{
+  color: #DB4437;
 }
